@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const connectDB = async () => {
   try {
@@ -12,5 +15,8 @@ const connectDB = async () => {
     process.exit();
   }
 };
+
+console.log(process.env.MONGO_URI)
+console.log('KKKKKKKK', process.env.MAILING_SERVICE_REFRESH_TOKEN);
 
 export default connectDB;
