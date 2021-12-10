@@ -37,6 +37,7 @@ export const createProduct = asynHandler(async (req, res, next) => {
     const result = await cloudinary.v2.uploader.upload(images[i], {
       folder: "products",
     });
+    console.log('113')
     imagesLinks.push({
       public_id: result.public_id,
       url: result.secure_url,
@@ -71,23 +72,30 @@ export const updateProduct = asynHandler(async (req, res, next) => {
   if (images !== undefined) {
     // Deleting Images From Cloudinary
     for (let i = 0; i < product.images.length; i++) {
-      await cloudinary.v2.uploader.destroy(product.images[i].public_id);
+      await cloudinary.v2.uploader.destroy(product.images[i]);
     }
 
-    const imagesLinks = [];
+    const db = images.filter((image) => image.public_id !== '' );
+    const imageUpload = images.filter((image) => image.public_id === '' );
+    // console.log('db',db);
+    // console.log('imageUpload',imageUpload);
 
-    for (let i = 0; i < images.length; i++) {
-      const result = await cloudinary.v2.uploader.upload(images[i], {
+    const imagesLinks = [];
+   
+    for (let i = 0; i < imageUpload.length; i++) {
+      const result = await cloudinary.v2.uploader.upload(imageUpload[i].url, {
         folder: "products",
       });
-
       imagesLinks.push({
         public_id: result.public_id,
         url: result.secure_url,
       });
     }
-
-    req.body.images = imagesLinks;
+    console.log('imagesLinks1', imagesLinks)
+    const finalImageLinks = imagesLinks.concat(db)
+    console.log('imagesLinks222', imagesLinks)
+   
+    req.body.images = finalImageLinks;
   }
 
   product = await Product.findByIdAndUpdate(req.params.id, req.body, {
@@ -234,8 +242,6 @@ export const getAllProducts = asynHandler(async (req, res, next) => {
 // Get Product Details
 
 export const getProductDeatails = asynHandler(async (req, res, next) => {
-  console.log(req.params);
-
   const product = await Product.findById(req.params.id);
 
   if (!product) {
