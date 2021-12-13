@@ -16,7 +16,4 @@ const connectDB = async () => {
   }
 };
 
-console.log(process.env.MONGO_URI)
-console.log('KKKKKKKK', process.env.MAILING_SERVICE_REFRESH_TOKEN);
-
 export default connectDB;
