@@ -5,6 +5,8 @@ import {
   getAdminCategories,
   getAllCategories,
   updateCategory,
+  getCategoriesSlug,
+  getCategoriesDescendants
 } from "../controllers/categoryController.js";
 
 import { isAuthenticatedUser, authorizeRoles } from "../middlewares/auth.js";
@@ -12,6 +14,10 @@ import { isAuthenticatedUser, authorizeRoles } from "../middlewares/auth.js";
 const router = express.Router();
 
 router.route("/categories").get(getAllCategories);
+
+router.route('/categories-slug').get(getCategoriesSlug);
+
+router.route('/categories-descendants').get(getCategoriesDescendants);
 
 router
   .route("/admin/categories")
