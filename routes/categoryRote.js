@@ -6,7 +6,8 @@ import {
   getAllCategories,
   updateCategory,
   getCategoriesSlug,
-  getCategoriesDescendants
+  getCategoriesDescendants,
+  getCategoriesCate3,
 } from "../controllers/categoryController.js";
 
 import { isAuthenticatedUser, authorizeRoles } from "../middlewares/auth.js";
@@ -15,9 +16,11 @@ const router = express.Router();
 
 router.route("/categories").get(getAllCategories);
 
-router.route('/categories-slug').get(getCategoriesSlug);
+router.route("/categories-slug").get(getCategoriesSlug);
 
-router.route('/categories-descendants').get(getCategoriesDescendants);
+router.route("/categories-descendants").get(getCategoriesCate3);
+
+router.route("/categories-3").get(getCategoriesDescendants);
 
 router
   .route("/admin/categories")
