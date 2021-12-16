@@ -6,8 +6,8 @@ import {
   getAllCategories,
   updateCategory,
   getCategoriesSlug,
-  getCategoriesDescendants,
-  getCategoriesCate3,
+  getCategories2,
+  getCategories3,
 } from "../controllers/categoryController.js";
 
 import { isAuthenticatedUser, authorizeRoles } from "../middlewares/auth.js";
@@ -18,9 +18,9 @@ router.route("/categories").get(getAllCategories);
 
 router.route("/categories-slug").get(getCategoriesSlug);
 
-router.route("/categories-descendants").get(getCategoriesCate3);
+router.route("/categories-2").get(getCategories2);
 
-router.route("/categories-3").get(getCategoriesDescendants);
+router.route("/categories-3").get(getCategories3);
 
 router
   .route("/admin/categories")

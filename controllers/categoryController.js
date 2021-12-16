@@ -69,9 +69,9 @@ export const getCategoriesSlug = asynHandler(async (req, res, next) => {
   }
 });
 
-// get descendants of a Category
+// get categories level 2
 
-export const getCategoriesDescendants = asynHandler(async (req, res, next) => {
+export const getCategories2 = asynHandler(async (req, res, next) => {
   try {
     const result = await Category.find({ parent: req.query.parent })
       .select({ _id: true, name: true })
@@ -82,7 +82,9 @@ export const getCategoriesDescendants = asynHandler(async (req, res, next) => {
   }
 });
 
-export const getCategoriesCate3 = asynHandler(async (req, res, next) => {
+// get categories level 3
+
+export const getCategories3 = asynHandler(async (req, res, next) => {
   try {
     const result = await Category.find({
       "ancestors._id": req.query.category_id,
