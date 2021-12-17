@@ -74,7 +74,7 @@ export const getCategoriesSlug = asynHandler(async (req, res, next) => {
 export const getCategories2 = asynHandler(async (req, res, next) => {
   try {
     const result = await Category.find({ parent: req.query.parent })
-      .select({ _id: true, name: true })
+      .select({ _id: true, name: true, parent: true })
       .exec();
     res.status(201).json(result);
   } catch (err) {
@@ -89,7 +89,7 @@ export const getCategories3 = asynHandler(async (req, res, next) => {
     const result = await Category.find({
       "ancestors._id": req.query.category_id,
     })
-      .select({ _id: true, name: true })
+      .select({ _id: true, name: true, parent: true })
       .exec();
     res.status(201).json(result);
   } catch (err) {
