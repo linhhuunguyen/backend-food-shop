@@ -37,7 +37,7 @@ export const createProduct = asynHandler(async (req, res, next) => {
     const result = await cloudinary.v2.uploader.upload(images[i], {
       folder: "products",
     });
-    console.log('113')
+    console.log("113");
     imagesLinks.push({
       public_id: result.public_id,
       url: result.secure_url,
@@ -75,13 +75,13 @@ export const updateProduct = asynHandler(async (req, res, next) => {
       await cloudinary.v2.uploader.destroy(product.images[i]);
     }
 
-    const db = images.filter((image) => image.public_id !== '' );
-    const imageUpload = images.filter((image) => image.public_id === '' );
+    const db = images.filter((image) => image.public_id !== "");
+    const imageUpload = images.filter((image) => image.public_id === "");
     // console.log('db',db);
     // console.log('imageUpload',imageUpload);
 
     const imagesLinks = [];
-   
+
     for (let i = 0; i < imageUpload.length; i++) {
       const result = await cloudinary.v2.uploader.upload(imageUpload[i].url, {
         folder: "products",
@@ -91,10 +91,10 @@ export const updateProduct = asynHandler(async (req, res, next) => {
         url: result.secure_url,
       });
     }
-    console.log('imagesLinks1', imagesLinks)
-    const finalImageLinks = imagesLinks.concat(db)
-    console.log('imagesLinks222', imagesLinks)
-   
+    console.log("imagesLinks1", imagesLinks);
+    const finalImageLinks = imagesLinks.concat(db);
+    console.log("imagesLinks222", imagesLinks);
+
     req.body.images = finalImageLinks;
   }
 
