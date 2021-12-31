@@ -37,12 +37,7 @@ const productSchema = mongoose.Schema(
         },
       },
     ],
-    category: [
-      {
-        type: String,
-        default: "hello",
-      },
-    ],
+    category: [{ type: String }],
     stock: {
       type: Number,
       required: [true, "Please Enter product Stock"],
